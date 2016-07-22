@@ -132,9 +132,7 @@ export PATH=${SCALA_HOME}/bin:$PATH
 <li>使profile文件更新生效</li>
 <li><pre><code>./etc/profile
 </code></pre><p>##配置SSH免密码登录</p>
-<blockquote>
 <p> 在集群管理和配置中有很多工具可以使用。例如，可以采用pssh等Linux工具在集群中分发与复制文件，用户也可以自己书写Shell、Python的脚本分发包。Spark的Master节点向Worker节点发命令需要通过ssh进行发送，用户不希望Master每发送一次命令就输入一次密码，因此需要实现Master无密码登录到所有Worker。<br>Master作为客户端，要实现无密码公钥认证，连接到服务端Worker。需要在Master上生成一个密钥对，包括一个公钥和一个私钥，然后将公钥复制到Worker上。当Master通过ssh连接Woker时，Worker就会生成一个随机数并用Master的公钥对随机数进行加密，发送给Worker。Master收到加密数之后再用私钥进行解密，并将解密数回传给Worker，Worker确认解密数无误之后，允许Master进行连接。这就是一个公钥认证过程，其间不需要用户手工输入密码，主要过程是将Master节点公钥复制到Worker节点上。<br>下面介绍如何配置Master与Worker之间的SSH免密码登录。</p>
-</blockquote>
 </li>
 <li><p>在Master节点上，执行以下命令</p>
 </li>
@@ -162,9 +160,7 @@ cat /home/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys
 /*可使用pssh对全部节点分发*/
 </code></pre>其他的Worker执行同样的操作。</li>
 </ul>
-<blockquote>
 <p>注意：配置完毕，如果Master仍然不能访问Worker，可以修改Worker的authorized_keys文件的权限，命令为chmod 600 authorized_keys。</p>
-</blockquote>
 <p>##安装Hadoop</p>
 <p>下面讲解Hadoop的安装过程和步骤。</p>
 <p>###1.下载hadoop-2.2.0</p>
