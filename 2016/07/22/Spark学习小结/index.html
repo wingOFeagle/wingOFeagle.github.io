@@ -5,25 +5,29 @@
   
   <title>Spark学习小结 | wingOFeagle之技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#什么是spark 
-
+  <meta name="description" content="什么是spark
 Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进行扩展，扩展后的spark不仅仅支持map与reduce的操作，而且支持包括map的Transform操作与包括reduce的Action操作。相较于受限于磁盘IO瓶颈的hadoop，基于内存的spark在性能的提升上有了较大的进步，尤其是以重复使用数据为主要特点的迭代运算（ML也上使用迭代运算）
-官方">
+官方主页：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark学习小结">
 <meta property="og:url" content="http://yoursite.com/2016/07/22/Spark学习小结/index.html">
 <meta property="og:site_name" content="wingOFeagle之技术博客">
-<meta property="og:description" content="#什么是spark 
-
+<meta property="og:description" content="什么是spark
 Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进行扩展，扩展后的spark不仅仅支持map与reduce的操作，而且支持包括map的Transform操作与包括reduce的Action操作。相较于受限于磁盘IO瓶颈的hadoop，基于内存的spark在性能的提升上有了较大的进步，尤其是以重复使用数据为主要特点的迭代运算（ML也上使用迭代运算）
-官方">
-<meta property="og:updated_time" content="2016-07-22T10:02:51.000Z">
+官方主页：">
+<meta property="og:image" content="http://yoursite.com/img/RDD1.png">
+<meta property="og:image" content="http://yoursite.com/img/RDD2.png">
+<meta property="og:image" content="http://yoursite.com/img/spark应用.png">
+<meta property="og:image" content="http://yoursite.com/img/spark 调度1.png">
+<meta property="og:image" content="http://yoursite.com/img/spark 调度2.png">
+<meta property="og:image" content="http://yoursite.com/img/spark 调度3.png">
+<meta property="og:updated_time" content="2016-07-22T10:15:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习小结">
-<meta name="twitter:description" content="#什么是spark 
-
+<meta name="twitter:description" content="什么是spark
 Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进行扩展，扩展后的spark不仅仅支持map与reduce的操作，而且支持包括map的Transform操作与包括reduce的Action操作。相较于受限于磁盘IO瓶颈的hadoop，基于内存的spark在性能的提升上有了较大的进步，尤其是以重复使用数据为主要特点的迭代运算（ML也上使用迭代运算）
-官方">
+官方主页：">
+<meta name="twitter:image" content="http://yoursite.com/img/RDD1.png">
   
     <link rel="alternate" href="/atom.xml" title="wingOFeagle之技术博客" type="application/atom+xml">
   
@@ -65,9 +69,9 @@ Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -102,8 +106,7 @@ Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#什么是spark </p>
-<ul>
+        <h1 id="什么是spark"><a href="#什么是spark" class="headerlink" title="什么是spark"></a>什么是spark</h1><ul>
 <li><strong>Spark</strong>是一种基于内存的分布式处理框架。其在hadoop MR基础上进行扩展，扩展后的spark不仅仅支持map与reduce的操作，而且支持包括map的Transform操作与包括reduce的Action操作。相较于受限于磁盘IO瓶颈的hadoop，基于内存的spark在性能的提升上有了较大的进步，尤其是以重复使用数据为主要特点的迭代运算（ML也上使用迭代运算）<ul>
 <li>官方主页：<a href="http://spark.apache.org/docs/latest/" target="_blank" rel="external">http://spark.apache.org/docs/latest/</a></li>
 </ul>
@@ -127,12 +130,11 @@ Spark是一种基于内存的分布式处理框架。其在hadoop MR基础上进
 <li><strong>driver application</strong>，即要运行的spark程序</li>
 <li><strong>executor</strong>，在一个Worker Node上为应用启动的工作进程，在进程中赋值任务的运行，并且负责将数据存放在内存或磁盘上，必须注意的是，每个应用在一个Worker Node上只会有一个Executor，在Executor内部通过多线程的方式并发处理应用的任务</li>
 <li><strong>job</strong>，和Spark的action相对应，每一个action例如count、saveAsTextFile等都会对应一个job实例，该job实例包含多任务的并行计算<br>cluster manager，集群资源的管理外部服务，在spark上现在有standalone、yarn、mesos等三种集群资源管理器，spark自带的standalone模式能够满足大部分的spark计算环境对集群资源管理的需求，基本上只有在集群中运行多套计算框架的时候才考虑yarn和mesos</li>
-<li><strong>task</strong></li>
-<li><a href="&quot;/img/RDD1.png&quot;">RDD1</a></li>
+<li><strong>task</strong><br><img src="/img/RDD1.png" alt="RDD1"></li>
 <li><strong>RDD</strong>，即resilient distributed dataset，弹性分布式数据集。它是一个只读，可分区的分布式数据集，这些数据集大部分分布在内存中（当然可以控制存储级别：内存、磁盘等）。RDD的初始化通过sparkcontext进行加载，加载的来源既可以是以hdfs为代表的分布式存储系统也可以是普通的文件。针对RDD的数据集，spark提供了两类操作，transform（返回值还是一个RDD）与action（返回值不是一个RDD）<ul>
 <li>Transformations (如：map, filter, groupBy, join等)，Transformations操作是Lazy的，也就是说从一个RDD转换生成另一个RDD的操作不是马上执行，Spark在遇到Transformations操作时只会记录需要这样的操作，并不会去执行，需要等到有Actions操作的时候才会真正启动计算过程进行计算</li>
 <li>Actions)（如：count, collect, save等)，Actions操作会返回结果或把RDD数据写到存储系统中。Actions是触发Spark启动计算的动因。</li>
-<li>如下图所示，RDD的存储结构。事实上，每个RDD的数据都以Block的形式存储于多台机器上，其中每个Executor会启动一个BlockManagerSlave，并管理一部分Block；而Block的元数据由Driver节点的BlockManagerMaster保存。BlockManagerSlave生成Block后向BlockManagerMaster注册该Block，BlockManagerMaster管理RDD与Block的关系，当RDD不再需要存储的时候，将向BlockManagerSlave发送指令删除相应的Block。<br><a href="&quot;/img/RDD2.png&quot;">RDD2</a></li>
+<li>如下图所示，RDD的存储结构。事实上，每个RDD的数据都以Block的形式存储于多台机器上，其中每个Executor会启动一个BlockManagerSlave，并管理一部分Block；而Block的元数据由Driver节点的BlockManagerMaster保存。BlockManagerSlave生成Block后向BlockManagerMaster注册该Block，BlockManagerMaster管理RDD与Block的关系，当RDD不再需要存储的时候，将向BlockManagerSlave发送指令删除相应的Block。<br><img src="/img/RDD2.png" alt="RDD2"></li>
 <li>Reference：</li>
 <li><pre><code>RDD 原理： http://blog.csdn.net/stark_summer/article/details/47174733；
 RDD: http://www.aboutyun.com/forum.php?mod=viewthread&amp;tid=7214&amp;page=1
@@ -144,7 +146,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
 <li><strong>DAG</strong>：Direct Acycle graph，有向无环图，反映RDD之间的依赖关系</li>
 <li><strong>narrow dependency</strong>，子RDD 依赖于父RDD 固定的data partition</li>
 <li><p><strong>wide/shuffle dependency</strong>，子RDD 依赖于父RDD 所有的data partition</p>
-<h1 id="spark的应用场景"><a href="#spark的应用场景" class="headerlink" title="spark的应用场景"></a>spark的应用场景</h1><p>spark可以用于实时计算（需要较高的内存要求，更加适合于迭代或者重复运算）、ML、关系数据查询、图形处理<br><a href="&quot;/img/spark应用.png&quot;">spark应用</a></p>
+<h1 id="spark的应用场景"><a href="#spark的应用场景" class="headerlink" title="spark的应用场景"></a>spark的应用场景</h1><p>spark可以用于实时计算（需要较高的内存要求，更加适合于迭代或者重复运算）、ML、关系数据查询、图形处理<br><img src="/img/spark应用.png" alt="spark应用"></p>
 <pre><code>.
 </code></pre><h1 id="spark的容错机制"><a href="#spark的容错机制" class="headerlink" title="spark的容错机制"></a>spark的容错机制</h1></li>
 </ul>
@@ -155,19 +157,18 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
 </ul>
 </li>
 <li>记录数据的更新，它是把RDD生成的依赖关系记录下来，当数据丢失时根据依赖关系重新生成数据。当前RDD只支持粗粒度转换（细粒度的成本更新成本太高），即只记录单个块上执行的单个操作，然后将创建RDD的一系列变换序列（每个RDD都包含了他是如何由其他RDD变换过来的以及如何重建某一块数据的信息。因此RDD的容错机制又称“血统(Lineage)”容错）记录下来，以便恢复丢失的分区。其优点是对于窄依赖（narrow dependency）可以很快的进行数据还原，但对于复杂且Lineage较长的宽依赖则耗时较长而且往往占用较多的资源，因此在处理Lineage较长的宽依赖时往往采用“数据检查点+记录数据更新”的方式。<ul>
-<li>Reference：<a href="http://www.jianshu.com/p/99ebcc7c92d3" target="_blank" rel="external">http://www.jianshu.com/p/99ebcc7c92d3</a><h1 id="spark-的资源管理与任务调度"><a href="#spark-的资源管理与任务调度" class="headerlink" title="spark 的资源管理与任务调度"></a>spark 的资源管理与任务调度</h1></li>
+<li>Reference：<a href="http://www.jianshu.com/p/99ebcc7c92d3" target="_blank" rel="external">http://www.jianshu.com/p/99ebcc7c92d3</a><h1 id="spark的资源管理与任务调度"><a href="#spark的资源管理与任务调度" class="headerlink" title="spark的资源管理与任务调度"></a>spark的资源管理与任务调度</h1></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p>##资源管理</p>
-<ul>
+<h2 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h2><ul>
 <li>spark的资源管理一般由cluster manager进行</li>
 <li>不同application间，支持资源动态调整，设定时间内无活动的job所占用的资源会被回收，需要资源的job spark会以1-2-4-8以此类推的形式逐步分配资源</li>
 <li>同一个application内，不同的线程可以组成不同的池（pool），池可以设置不同的优先级来将资源优先分配给更重要job。缺省配置下，不同的池采用Roundrobin进行资源调度，同一个池内job采用FIFO进行调度</li>
 <li><p>Reference：官网资源调度说明，<a href="http://spark.apache.org/docs/latest/job-scheduling.html#graceful-decommission-of-executors" target="_blank" rel="external">http://spark.apache.org/docs/latest/job-scheduling.html#graceful-decommission-of-executors</a></p>
-<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><p><a href="&quot;/img/spark 调度1.png&quot;">spark 调度1</a><br><a href="&quot;/img/spark 调度2.png&quot;">spark 调度2</a><br><a href="&quot;/img/spark 调度3.png&quot;">spark 调度3</a></p>
+<h2 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h2><p><img src="/img/spark 调度1.png" alt="spark 调度1"><br><img src="/img/spark 调度2.png" alt="spark 调度2"><br><img src="/img/spark 调度3.png" alt="spark 调度3"></p>
 <p> 在用户创建 SparkContext 对象时，Spark会在内部创建 DAGScheduler 对象，并根据用户的部署情况，绑定不同的 TaskSechduler ，并启动DAGScheduler。基于生产-消费模型的DAGSchedual启动后调用 processEvent来处理block queue 中的event（event类型：JobSubmitted/CompletionEvent/ExecutorLost/TaskFailed/StopDAGScheduler），其具体的流程如下：</p>
 </li>
 </ul>
@@ -222,7 +223,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/22/Spark学习小结/" data-id="ciqxkwbel000056j6k0pksez9" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/07/22/Spark学习小结/" data-id="ciqxkwbel000056j6k0pksez9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spark/">Spark</a></li></ul>
@@ -235,7 +236,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   
   
     <a href="/2016/07/22/test/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">test</div>
     </a>
   
@@ -250,7 +251,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Spark/">Spark</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/test/">test</a></li></ul>
     </div>
@@ -260,7 +261,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spark/">Spark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a></li></ul>
     </div>
@@ -270,7 +271,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
     </div>
@@ -289,7 +290,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -318,7 +319,7 @@ spark名词解释：http://blog.csdn.net/stark_summer/article/details/42833609
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 Gason<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
